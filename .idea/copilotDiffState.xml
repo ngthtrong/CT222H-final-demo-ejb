@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="$PROJECT_DIR$/ejb-demo-api/src/main/java/com/example/api/MySessionBeanLocal.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/ejb-demo-api/src/main/java/com/example/api/MySessionBeanLocal.java" />
+              <option name="updatedContent" value="package com.example.api;&#10;&#10;import jakarta.ejb.Local;&#10;import java.util.List;&#10;&#10;@Local&#10;public interface MySessionBeanLocal {&#10;    void addUser(String name);&#10;    List&lt;String&gt; getAllUserNames();&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/ejb-demo-ejb/src/main/java/com/example/ejb/MySessionBean.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/ejb-demo-ejb/src/main/java/com/example/ejb/MySessionBean.java" />
+              <option name="updatedContent" value="package com.example.ejb;&#10;&#10;import com.example.api.MySessionBeanLocal;&#10;import com.example.api.MySessionBeanRemote;&#10;import com.example.entity.User;&#10;import jakarta.ejb.Stateless;&#10;import jakarta.persistence.EntityManager;&#10;import jakarta.persistence.PersistenceContext;&#10;import java.util.List;&#10;import java.util.stream.Collectors;&#10;&#10;@Stateless&#10;public class MySessionBean implements MySessionBeanLocal, MySessionBeanRemote {&#10;&#10;    @PersistenceContext(unitName = &quot;myAppPU&quot;)&#10;    private EntityManager em;&#10;&#10;    // Local method: Interact with DB&#10;    @Override&#10;    public void addUser(String name) {&#10;        User user = new User();&#10;        user.setName(name);&#10;        em.persist(user);&#10;    }&#10;&#10;    @Override&#10;    public List&lt;String&gt; getAllUserNames() {&#10;        return em.createQuery(&quot;SELECT u FROM User u&quot;, User.class)&#10;                 .getResultList()&#10;                 .stream()&#10;                 .map(User::getName)&#10;                 .collect(Collectors.toList());&#10;    }&#10;&#10;    // Remote method: Simple logic&#10;    @Override&#10;    public String getGreeting(String name) {&#10;        return &quot;Hello, &quot; + name + &quot; from Remote EJB!&quot;;&#10;    }&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/ejb-demo-ejb/src/main/java/com/example/entity/User.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/ejb-demo-ejb/src/main/java/com/example/entity/User.java" />
+              <option name="updatedContent" value="package com.example.entity;&#10;&#10;import jakarta.persistence.*;&#10;import java.io.Serializable;&#10;&#10;@Entity&#10;@Table(name = &quot;users&quot;)&#10;public class User implements Serializable {&#10;    @Id&#10;    @GeneratedValue(strategy = GenerationType.IDENTITY)&#10;    private Long id;&#10;    &#10;    @Column(name = &quot;name&quot;)&#10;    private String name;&#10;&#10;    // Default constructor&#10;    public User() {}&#10;&#10;    public User(String name) {&#10;        this.name = name;&#10;    }&#10;&#10;    // Getters and Setters&#10;    public Long getId() {&#10;        return id;&#10;    }&#10;&#10;    public void setId(Long id) {&#10;        this.id = id;&#10;    }&#10;&#10;    public String getName() {&#10;        return name;&#10;    }&#10;&#10;    public void setName(String name) {&#10;        this.name = name;&#10;    }&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
