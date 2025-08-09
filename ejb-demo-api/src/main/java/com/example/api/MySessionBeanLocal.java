@@ -5,6 +5,10 @@ import java.util.List;
 
 @Local
 public interface MySessionBeanLocal {
-    void addUser(String name);
-    List<String> getAllUserNames();
+    // Message processing methods
+    void processMessage(String message);
+    void addMessage(String message);
+    List<String> getAllMessages();
+    int getMessageCount();
+    String getLatestMessage();
 }

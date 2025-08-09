@@ -25,7 +25,10 @@ public class MyServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("users", mySessionBean.getAllUserNames());
+        // Get message information from Session Bean Local
+        req.setAttribute("messages", mySessionBean.getAllMessages());
+        req.setAttribute("messageCount", mySessionBean.getMessageCount());
+        req.setAttribute("latestMessage", mySessionBean.getLatestMessage());
         req.getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 
@@ -33,12 +36,11 @@ public class MyServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String action = req.getParameter("action");
 
-        if ("addUser".equals(action)) {
-            String name = req.getParameter("name");
-            mySessionBean.addUser(name);
-        } else if ("sendMessage".equals(action)) {
+        if ("sendMessage".equals(action)) {
             String message = req.getParameter("message");
-            sendMessageToMDB(message);
+            if (message != null && !message.trim().isEmpty()) {
+                sendMessageToMDB(message.trim());
+            }
         }
 
         resp.sendRedirect(req.getContextPath() + "/app");
