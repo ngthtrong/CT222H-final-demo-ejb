@@ -12,19 +12,9 @@
         <servlet-class>com.example.web.MyServlet</servlet-class>
     </servlet>
     
-    <servlet>
-        <servlet-name>RemoteClientServlet</servlet-name>
-        <servlet-class>com.example.web.RemoteClientServlet</servlet-class>
-    </servlet>
-    
     <servlet-mapping>
         <servlet-name>MyServlet</servlet-name>
         <url-pattern>/app</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>RemoteClientServlet</servlet-name>
-        <url-pattern>/remote-client</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>
